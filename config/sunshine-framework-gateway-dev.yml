@@ -1,2 +1,10 @@
 server:
   port: 8663
+eureka:
+  client:
+    # 开启健康检查
+    # 不能写在bootstrap.yml中，官方的解释是
+    # eureka.client.healthcheck.enabled=true should only be set in application.yml. 
+    # Setting the value in bootstrap.yml causes undesirable side effects, such as registering in Eureka with an UNKNOWN status.
+    healthcheck:
+      enabled: true
