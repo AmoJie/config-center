@@ -8,6 +8,16 @@ eureka:
     # Setting the value in bootstrap.yml causes undesirable side effects, such as registering in Eureka with an UNKNOWN status.
     healthcheck:
       enabled: true
+management:
+  server:
+    port: 9001
+    endpoints:
+      web:
+        # base-path: /monitor
+        exposure:
+          include: *
+      health:
+        show-details: always
 logging:
   level:
     com.netflix: DEBUG
