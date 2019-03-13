@@ -8,9 +8,9 @@ eureka:
     # Setting the value in bootstrap.yml causes undesirable side effects, such as registering in Eureka with an UNKNOWN status.
     healthcheck:
       enabled: true
-logging:
-  level:
-    com.netflix: DEBUG
+#logging:
+  #level:
+    #com.netflix: DEBUG
 spring:
   cloud:
     gateway:
