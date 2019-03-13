@@ -25,7 +25,7 @@ spring:
           args:
             name: fallbackcmd
             fallbackUri: forward:/fallback
- hystrix:
+hystrix:
   command:
     fallbackcmd:
       execution:
