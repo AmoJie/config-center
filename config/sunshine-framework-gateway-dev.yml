@@ -11,3 +11,24 @@ eureka:
 logging:
   level:
     com.netflix: DEBUG
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: hystrix_route
+        #使用loadbalance
+        uri: lb://sunshine-framework-manage:8088
+        predicates:
+        - Path=/sunshine-framework-manage
+        filters:
+        - name: Hystrix
+          args:
+            name: fallbackcmd
+            fallbackUri: forward:/fallback
+ hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
