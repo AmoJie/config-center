@@ -19,7 +19,7 @@ spring:
         #使用loadbalance
         uri: lb://sunshine-framework-manage
         predicates:
-        - Path=/sunshine-framework-manage
+        - Path=/sunshine-framework-manage/**
         filters:
         - name: Hystrix
           args:
