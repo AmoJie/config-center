@@ -1,0 +1,72 @@
+server:
+  port: 8088
+#  servlet:
+#    context-path: /
+spring:
+  application:
+    name: web-api
+  redis:
+    #host: redis-1.xha.com
+    #port: 6379
+    password: a5791E2a3043T
+    timeout: 5000
+    sentinel:
+      master: mymaster
+      nodes: redis-1.xha.com:26379,redis-2.xha.com:26379,redis-3.xha.com:26379
+  lettuce:
+    pool:
+      max-active: 50
+      max-wait: -1
+      max-idle: 20
+      min-idle: 20
+      test-while-idle: true
+      test-on-return: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-1.xha.com:18081/eureka/,http://eureka-2.xha.com:18082/eureka/,http://eureka-3.xha.com:18083/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+
+amaavic:
+  server:
+    name: amaavic-server
+
+# 设置ribbon缓存
+ribbon:
+  eager-load:
+    enabled: true
+    clients: ${amaavic.server.name}
+  ConnectTimeout: 3000
+  ReadTimeout: 3000
+amaavic-server:
+  MaxTotalHttpConnections: 200
+  MaxConnectionsPerHost: 50
+
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+  threadpool:
+    default:
+      coreSize: 20
+
+system:
+  domain: 127.0.0.1
+
+shiro:
+  excludeUrls: /**/login,/**/doc.html,/**swagger**,/health
+

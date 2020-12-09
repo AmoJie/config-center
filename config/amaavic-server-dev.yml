@@ -1,0 +1,78 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: amaavic-server
+#  zipkin:
+#    base-url: http://localhost:9411
+    #设置Sleuth的抽样收集概率
+#  sleuth:
+#    sampler:
+#      probability: 0.1
+  # redis配置
+  redis:
+    #host: redis-1.xha.com
+    #port: 6379
+    password: a5791E2a3043T
+    timeout: 5000
+    sentinel:
+      master: mymaster
+      nodes: redis-1.xha.com:26379,redis-2.xha.com:26379,redis-3.xha.com:26379
+  lettuce:
+    pool:
+      max-active: 50
+      max-wait: -1
+      max-idle: 20
+      min-idle: 20
+      test-while-idle: true
+      test-on-return: true
+  # 数据源配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置
+    druid:
+      #监控统计拦截的filters
+      filters: stat
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://mysql.xha.com:3306/hhp_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+      username: it
+      password: Its123
+      initial-size: 5
+      min-idle: 5
+      max-active: 10
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: false
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 5
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-1.xha.com:18081/eureka/,http://eureka-2.xha.com:18082/eureka/,http://eureka-3.xha.com:18083/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+
+amaavic:
+  server:
+    name: amaavic-server
+
+
+# 设置ribbon缓存
+#ribbon:
+#  eager-load:
+#    enabled: true
+#    clients: test-yj2
+#
+#feign:
+#  httpclient:
+#    enabled: false
+#  okhttp:
+#    enabled: true
+
